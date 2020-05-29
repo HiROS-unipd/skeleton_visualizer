@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="node_name"                       default="node_01" />
+
+  <!--*************************************************************-->
+  <!-- Hi-Ros Skeleton Tracker Visualizer Node: Parameters override and Run-->
+  <!--*************************************************************-->
+  <include file="$(find hiros_skeleton_tracker_visualizer)/launch/hiros_skeleton_tracker_visualizer_default.launch">
+    <arg name="hiros_skeleton_tracker_visualizer_node_required"      value="false"                  />
+    <arg name="node_name"                     value="$(arg node_name)"      />
+
+    <arg name="input_skeleton_topic"          value="/hiros/st/node_01/qhd/skeleton_group" />
+    <arg name="output_image_topic_name"       value="skel_track_vis"    />
+  </include>
+
+</launch>

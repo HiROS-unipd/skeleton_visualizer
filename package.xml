@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hiros_skeleton_tracker_visualizer</name>
+  <version>0.1.0</version>
+  <description>Hi-ROS mantained skeleton_tracker_visualizer package</description>
+  <maintainer email="luca.tagliapietra@unipd.it">lucaTagliapietra @ Hi-ROS</maintainer>
+  <maintainer email="mattia.guidolin@phd.unipd.it">mguidolin @ Hi-ROS</maintainer>
+  <license>TODO</license>
+
+  <url type="website">https://gitlab.com/hi-ros</url>
+  <author email="luca.tagliapietra@unipd.it">Luca Tagliapietra</author>
+  <author email="mattia.guidolin@phd.unipd.it">Mattia Guidolin</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>cv_bridge</depend>
+  <depend>sensor_msgs</depend>
+  <depend>skeleton_msgs</depend>
+  <depend>image_transport</depend>
+</package>
