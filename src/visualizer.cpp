@@ -6,7 +6,7 @@
 
 // Ros Distributed Message dependencies
 #include <sensor_msgs/image_encodings.h>
-#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/MarkerArray.h>
 
 // Non-ROS External Dependencies
 #include <opencv2/core.hpp>
@@ -136,7 +136,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(const skeleton_msgs::SkeletonGrou
       visualization_msgs::Marker skeleton_id;
       skeleton_id.header.frame_id = "world";
       skeleton_id.header.stamp = ros::Time::now();
-      skeleton_id.ns = "skeletons";
+      skeleton_id.ns = "pos";
       skeleton_id.action = visualization_msgs::Marker::ADD;
       skeleton_id.pose.orientation.w = 1.0;
       skeleton_id.id = id++; // skeleton_part.id = 10 * sk.id + skp.id
@@ -160,7 +160,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(const skeleton_msgs::SkeletonGrou
           visualization_msgs::Marker skeleton_part;
           skeleton_part.header.frame_id = "world";
           skeleton_part.header.stamp = ros::Time::now();
-          skeleton_part.ns = "skeletons";
+          skeleton_part.ns = "pos";
           skeleton_part.action = visualization_msgs::Marker::ADD;
           skeleton_part.pose.orientation.w = 1.0;
           skeleton_part.id = id++; // skeleton_part.id = 10 * sk.id + skp.id
@@ -180,6 +180,53 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(const skeleton_msgs::SkeletonGrou
             p.y = kp.point.position.y;
             p.z = kp.point.position.z;
             skeleton_part.points.push_back(p);
+
+            visualization_msgs::Marker velocity_marker;
+            velocity_marker.header.frame_id = "world";
+            velocity_marker.header.stamp = ros::Time::now();
+            velocity_marker.ns = "vel";
+            velocity_marker.id = id++;
+            velocity_marker.type = visualization_msgs::Marker::ARROW;
+            velocity_marker.action = visualization_msgs::Marker::ADD;
+            velocity_marker.lifetime = ros::Duration(0.1);
+            velocity_marker.points.push_back(p);
+            geometry_msgs::Point p2;
+            p2.x = p.x + kp.point.velocity.x * 0.1;
+            p2.y = p.y + kp.point.velocity.y * 0.1;
+            p2.z = p.z + kp.point.velocity.z * 0.1;
+            velocity_marker.points.push_back(p2);
+            velocity_marker.scale.x = 0.02;
+            velocity_marker.scale.y = 0.02;
+            velocity_marker.scale.z = 0.02;
+            velocity_marker.color.r = r;
+            velocity_marker.color.g = g;
+            velocity_marker.color.b = b;
+            velocity_marker.color.a = 1.0;
+
+            out_msg.markers.push_back(velocity_marker);
+
+            visualization_msgs::Marker acceleration_marker;
+            acceleration_marker.header.frame_id = "world";
+            acceleration_marker.header.stamp = ros::Time::now();
+            acceleration_marker.ns = "acc";
+            acceleration_marker.id = id++;
+            acceleration_marker.type = visualization_msgs::Marker::ARROW;
+            acceleration_marker.action = visualization_msgs::Marker::ADD;
+            acceleration_marker.lifetime = ros::Duration(0.1);
+            acceleration_marker.points.push_back(p);
+            p2.x = p.x + kp.point.acceleration.x * 0.1;
+            p2.y = p.y + kp.point.acceleration.y * 0.1;
+            p2.z = p.z + kp.point.acceleration.z * 0.1;
+            acceleration_marker.points.push_back(p2);
+            acceleration_marker.scale.x = 0.02;
+            acceleration_marker.scale.y = 0.02;
+            acceleration_marker.scale.z = 0.02;
+            acceleration_marker.color.r = r;
+            acceleration_marker.color.g = g;
+            acceleration_marker.color.b = b;
+            acceleration_marker.color.a = 1.0;
+
+            out_msg.markers.push_back(acceleration_marker);
           }
 
           out_msg.markers.push_back(skeleton_part);
