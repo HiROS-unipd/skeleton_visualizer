@@ -22,6 +22,9 @@ namespace hiros {
 
     struct VisualizerParameters
     {
+      int seed;
+      double lifetime = 0.1;
+      float alpha = 1;
       std::string in_skeleton_topic = "";
       std::string out_image_topic_name = "";
     };
@@ -50,6 +53,8 @@ namespace hiros {
       ros::Subscriber m_in_skel_sub;
       image_transport::Publisher m_out_img_pub;
       ros::Publisher m_rviz_pub;
+
+      std::vector<std::pair<int, int>> m_links;
 
       VisualizerParameters m_params{};
 

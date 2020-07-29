@@ -6,8 +6,11 @@
   <!--***************************************-->
   <!-- Hi-Ros Skeleton Tracker Visualizer Parameters -->
   <!--***************************************-->
-  <arg name="input_skeleton_topic"            default=""                />
-  <arg name="output_image_topic_name"         default="stv"  />
+  <arg name="seed"                    default="0"   />
+  <arg name="lifetime"                default="0.1" />
+  <arg name="alpha"                   default="1.0" />
+  <arg name="input_skeleton_topic"    default=""    />
+  <arg name="output_image_topic_name" default="stv" />
 
   <!--******************************-->
   <!-- Hi-Ros Skeleton Tracker Visuazlier Node -->
@@ -15,6 +18,9 @@
   <node pkg="hiros_skeleton_tracker_visualizer" type="hiros_skeleton_tracker_visualizer" ns="hiros/stv" name="$(arg node_name)" output="screen" required="$(arg hiros_skeleton_tracker_visualizer_node_required)">
 
     <param name="node_name"                       type="str"        value="$(arg node_name)"                     />
+    <param name="seed"                            type="int"        value="$(arg seed)"                          />
+    <param name="lifetime"                        type="double"     value="$(arg lifetime)"                      />
+    <param name="alpha"                           type="double"     value="$(arg alpha)"                         />
     <param name="input_skeleton_topic"            type="str"        value="$(arg input_skeleton_topic)"          />
     <param name="output_image_topic_name"         type="str"        value="$(arg output_image_topic_name)"       />
   </node>
