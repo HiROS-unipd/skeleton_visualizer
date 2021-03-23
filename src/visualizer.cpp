@@ -8,7 +8,6 @@
 
 // Ros Distributed Message dependencies
 #include <sensor_msgs/image_encodings.h>
-#include <visualization_msgs/MarkerArray.h>
 
 // Non-ROS External Dependencies
 #include <opencv2/core.hpp>
@@ -242,9 +241,9 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
           skeleton_part.id = id++; // skeleton_part.id = 10 * sk.id + skp.id
           skeleton_part.lifetime = ros::Duration(m_params.lifetime);
           skeleton_part.type = visualization_msgs::Marker::SPHERE_LIST;
-          skeleton_part.scale.x = 0.02 * m_params.alpha;
-          skeleton_part.scale.y = 0.02 * m_params.alpha;
-          skeleton_part.scale.z = 0.02 * m_params.alpha;
+          skeleton_part.scale.x = 0.02 * static_cast<double>(m_params.alpha);
+          skeleton_part.scale.y = 0.02 * static_cast<double>(m_params.alpha);
+          skeleton_part.scale.z = 0.02 * static_cast<double>(m_params.alpha);
           skeleton_part.color.r = r;
           skeleton_part.color.g = g;
           skeleton_part.color.b = b;
