@@ -53,7 +53,7 @@ namespace hiros {
       image_transport::ImageTransport m_ith;
       ros::Subscriber m_in_skel_sub;
       image_transport::Publisher m_out_img_pub;
-      ros::Publisher m_rviz_pub;
+      ros::Publisher m_marker_array_pub;
 
       std::vector<std::pair<int, int>> m_links;
 

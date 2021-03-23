@@ -93,7 +93,7 @@ void hiros::vis::Visualizer::setupRosTopics()
   }
 
   m_out_img_pub = m_ith.advertise(m_params.out_image_topic, 1);
-  m_rviz_pub = m_nh.advertise<visualization_msgs::MarkerArray>(m_params.out_marker_array_topic, 1);
+  m_marker_array_pub = m_nh.advertise<visualization_msgs::MarkerArray>(m_params.out_marker_array_topic, 1);
 }
 
 void hiros::vis::Visualizer::configure()
@@ -148,7 +148,7 @@ void hiros::vis::Visualizer::skeleton_cb(skeleton_msgs::MarkerSkeletonGroupConst
 
   //  m_out_img_pub.publish(out_cv_img.toImageMsg());
 
-  m_rviz_pub.publish(getSkeletonMarkerArray(t_msg));
+  m_marker_array_pub.publish(getSkeletonMarkerArray(t_msg));
 }
 
 visualization_msgs::MarkerArray
