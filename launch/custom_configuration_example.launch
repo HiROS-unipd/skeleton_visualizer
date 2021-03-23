@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="node_name"                       default="node_01" />
+  <arg name="node_name"     default="node_01" />
+  <arg name="node_required" default="false"   />
 
   <!--**************************************************************-->
   <!-- Hi-Ros Skeleton Visualizer Node: Parameters override and Run -->
   <!--**************************************************************-->
   <include file="$(find hiros_skeleton_visualizer)/launch/hiros_skeleton_visualizer_default.launch">
-    <arg name="hiros_skeleton_visualizer_node_required"          value="false"                                />
     <arg name="node_name"                                        value="$(arg node_name)"                     />
-
+    <arg name="node_required"                                    value="$(arg node_required)"                 />
     <arg name="alpha"                                            value="0.5"                                  />
     <arg name="lifetime"                                         value="0.04"                                 />
     <arg name="input_skeleton_topic"                             value="/hiros/st/node_01/qhd/skeleton_group" />
-    <arg name="output_image_topic_name"                          value="skel_vis"                             />
+    <arg name="output_image_topic"                               value="skel_img"                             />
+    <arg name="output_marker_array_topic"                        value="skel_mrk"                             />
   </include>
 
 </launch>

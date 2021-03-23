@@ -26,7 +26,8 @@ namespace hiros {
       double lifetime = 0.1;
       float alpha = 1;
       std::string in_skeleton_topic = "";
-      std::string out_image_topic_name = "";
+      std::string out_image_topic = "";
+      std::string out_marker_array_topic = "";
     };
 
     class Visualizer
