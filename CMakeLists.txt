@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(hiros_skeleton_tracker_visualizer)
+project(hiros_skeleton_visualizer)
 
 # Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -61,7 +61,7 @@ target_link_libraries(${PROJECT_NAME}_node
                       ${OpenCV_LIBS})
 
 set_target_properties(${PROJECT_NAME}_node
-                      PROPERTIES PUBLIC_HEADER include/opw/visualizer.h)
+                      PROPERTIES PUBLIC_HEADER include/skeleton_visualizer/visualizer.h)
 target_include_directories(${PROJECT_NAME}_node
                            PRIVATE include
                                    ${OpenCV_INCLUDE_DIRS}
@@ -73,7 +73,7 @@ target_include_directories(${PROJECT_NAME}_node
 install(TARGETS ${PROJECT_NAME}_node
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-install(FILES include/opw/visualizer.h
+install(FILES include/skeleton_visualizer/visualizer.h
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
 install(DIRECTORY config launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

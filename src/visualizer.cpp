@@ -19,7 +19,7 @@
 #include "skeletons/utils.h"
 
 // Internal dependencies
-#include "skeleton_tracker_visualizer/visualizer.h"
+#include "skeleton_visualizer/visualizer.h"
 
 hiros::vis::Visualizer::Visualizer()
   : m_nh("~")
@@ -56,7 +56,7 @@ hiros::vis::Visualizer::~Visualizer(){};
 
 void hiros::vis::Visualizer::start()
 {
-  ROS_INFO_STREAM("Hi-ROS Skeleton Tracker Visualizer...Starting");
+  ROS_INFO_STREAM("Hi-ROS Skeleton Visualizer...Starting");
 
   if (!m_configured) {
     configure();
@@ -64,12 +64,12 @@ void hiros::vis::Visualizer::start()
 
   setupRosTopics();
 
-  ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Tracker Visualizer...RUNNING" << BASH_MSG_RESET);
+  ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer...RUNNING" << BASH_MSG_RESET);
 }
 
 void hiros::vis::Visualizer::stop()
 {
-  ROS_INFO_STREAM("Hi-ROS Skeleton Tracker Visualizer...Stopping");
+  ROS_INFO_STREAM("Hi-ROS Skeleton Visualizer...Stopping");
 
   if (m_in_skel_sub) {
     m_in_skel_sub.shutdown();
@@ -79,7 +79,7 @@ void hiros::vis::Visualizer::stop()
     m_out_img_pub.shutdown();
   }
 
-  ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Tracker Visualizer...STOPPED" << BASH_MSG_RESET);
+  ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer...STOPPED" << BASH_MSG_RESET);
 }
 
 void hiros::vis::Visualizer::setupRosTopics()
@@ -98,7 +98,7 @@ void hiros::vis::Visualizer::setupRosTopics()
 
 void hiros::vis::Visualizer::configure()
 {
-  ROS_INFO_STREAM("Hi-ROS Skeleton Tracker Visualizer...Configuring");
+  ROS_INFO_STREAM("Hi-ROS Skeleton Visualizer...Configuring");
 
   if (m_configured) {
     m_configured = false;
@@ -113,7 +113,7 @@ void hiros::vis::Visualizer::configure()
 
   m_configured = true;
 
-  ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Tracker Visualizer...CONFIGURED" << BASH_MSG_RESET);
+  ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer...CONFIGURED" << BASH_MSG_RESET);
 };
 
 void hiros::vis::Visualizer::skeleton_cb(skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg)

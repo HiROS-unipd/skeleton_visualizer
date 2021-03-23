@@ -1,1 +1,1 @@
-skeleton_tracker_visualizer
+skeleton_visualizer

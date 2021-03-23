@@ -1,5 +1,5 @@
-#ifndef hiros_skeleton_tracker_visualizer_h
-#define hiros_skeleton_tracker_visualizer_h
+#ifndef hiros_skeleton_visualizer_h
+#define hiros_skeleton_visualizer_h
 
 // ROS dependencies
 #include <ros/ros.h>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>hiros_skeleton_tracker_visualizer</name>
+  <name>hiros_skeleton_visualizer</name>
   <version>0.1.0</version>
-  <description>Hi-ROS mantained skeleton_tracker_visualizer package</description>
+  <description>Hi-ROS maintained skeleton_visualizer package</description>
   <maintainer email="luca.tagliapietra@unipd.it">lucaTagliapietra @ Hi-ROS</maintainer>
   <maintainer email="mattia.guidolin@phd.unipd.it">mguidolin @ Hi-ROS</maintainer>
   <license>TODO</license>
