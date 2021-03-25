@@ -12,9 +12,6 @@
 // Non-ROS External Dependencies
 #include <opencv2/core.hpp>
 
-// Custom Ros Message dependencies
-#include "skeleton_msgs/SkeletonGroup.h"
-
 // Custom External Packages dependencies
 #include "skeletons/utils.h"
 
