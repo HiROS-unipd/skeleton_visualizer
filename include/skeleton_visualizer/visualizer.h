@@ -8,7 +8,7 @@
 #include <image_transport/image_transport.h>
 #include <visualization_msgs/MarkerArray.h>
 
-#include "skeleton_msgs/MarkerSkeletonGroup.h"
+#include "hiros_skeleton_msgs/MarkerSkeletonGroup.h"
 #include "skeletons/types.h"
 
 // OpenCV
@@ -42,10 +42,10 @@ namespace hiros {
       void stop();
 
     private:
-      void skeleton_cb(skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg);
+      void skeleton_cb(hiros_skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg);
 
       void setupRosTopics();
-      visualization_msgs::MarkerArray getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg) const;
+      visualization_msgs::MarkerArray getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg) const;
       bool isEmpty(const hiros::skeletons::types::MarkerSkeleton& t_skeleton) const;
 
       ros::NodeHandle m_nh;

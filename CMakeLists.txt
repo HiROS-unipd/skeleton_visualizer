@@ -11,7 +11,7 @@ find_package(catkin REQUIRED
                         image_transport
                         roscpp
                         sensor_msgs
-                        skeleton_msgs)
+                        hiros_skeleton_msgs)
 
 # System dependencies are found with CMake's conventions
 find_package(OpenCV)
@@ -19,7 +19,7 @@ find_package(OpenCV)
 # Declare the package to be exported and made available to ros
 catkin_package(CATKIN_DEPENDS
                sensor_msgs
-               skeleton_msgs)
+               hiros_skeleton_msgs)
 
 # ##############################################################################
 # Build ##

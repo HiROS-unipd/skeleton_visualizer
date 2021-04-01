@@ -114,7 +114,7 @@ void hiros::vis::Visualizer::configure()
   ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer...CONFIGURED" << BASH_MSG_RESET);
 };
 
-void hiros::vis::Visualizer::skeleton_cb(skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg)
+void hiros::vis::Visualizer::skeleton_cb(hiros_skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg)
 {
   //  cv::Mat cv_image(540, 960, CV_8UC3, cv::Scalar(0, 0, 0));
 
@@ -149,7 +149,7 @@ void hiros::vis::Visualizer::skeleton_cb(skeleton_msgs::MarkerSkeletonGroupConst
 }
 
 visualization_msgs::MarkerArray
-hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg) const
+hiros::vis::Visualizer::getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg) const
 {
   visualization_msgs::MarkerArray out_msg;
   hiros::skeletons::types::MarkerSkeletonGroup mskg = hiros::skeletons::utils::toStruct(*t_msg.get());
@@ -180,12 +180,12 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
       skeleton_id.color.g = g;
       skeleton_id.color.b = b;
       skeleton_id.color.a = m_params.alpha;
-      if (!std::isnan(msk.marker_groups.at(0).markers.begin()->second.point.position.x)
-          && !std::isnan(msk.marker_groups.at(0).markers.begin()->second.point.position.y)
-          && !std::isnan(msk.marker_groups.at(0).markers.begin()->second.point.position.z)) {
-        skeleton_id.pose.position.x = msk.marker_groups.at(0).markers.begin()->second.point.position.x;
-        skeleton_id.pose.position.y = msk.marker_groups.at(0).markers.begin()->second.point.position.y;
-        skeleton_id.pose.position.z = msk.marker_groups.at(0).markers.begin()->second.point.position.z;
+      if (!std::isnan(msk.marker_groups.at(0).markers.begin()->second.point.position.x())
+          && !std::isnan(msk.marker_groups.at(0).markers.begin()->second.point.position.y())
+          && !std::isnan(msk.marker_groups.at(0).markers.begin()->second.point.position.z())) {
+        skeleton_id.pose.position.x = msk.marker_groups.at(0).markers.begin()->second.point.position.x();
+        skeleton_id.pose.position.y = msk.marker_groups.at(0).markers.begin()->second.point.position.y();
+        skeleton_id.pose.position.z = msk.marker_groups.at(0).markers.begin()->second.point.position.z();
       }
       out_msg.markers.push_back(skeleton_id);
 
@@ -213,13 +213,13 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
                 && hiros::skeletons::utils::hasMarker(msk, mkg.first, link.second)) {
               geometry_msgs::Point parent_joint, child_joint;
 
-              parent_joint.x = msk.marker_groups.at(0).markers.at(link.first).point.position.x;
-              parent_joint.y = msk.marker_groups.at(0).markers.at(link.first).point.position.y;
-              parent_joint.z = msk.marker_groups.at(0).markers.at(link.first).point.position.z;
+              parent_joint.x = msk.marker_groups.at(0).markers.at(link.first).point.position.x();
+              parent_joint.y = msk.marker_groups.at(0).markers.at(link.first).point.position.y();
+              parent_joint.z = msk.marker_groups.at(0).markers.at(link.first).point.position.z();
 
-              child_joint.x = msk.marker_groups.at(0).markers.at(link.second).point.position.x;
-              child_joint.y = msk.marker_groups.at(0).markers.at(link.second).point.position.y;
-              child_joint.z = msk.marker_groups.at(0).markers.at(link.second).point.position.z;
+              child_joint.x = msk.marker_groups.at(0).markers.at(link.second).point.position.x();
+              child_joint.y = msk.marker_groups.at(0).markers.at(link.second).point.position.y();
+              child_joint.z = msk.marker_groups.at(0).markers.at(link.second).point.position.z();
 
               links.points.push_back(parent_joint);
               links.points.push_back(child_joint);
@@ -248,16 +248,16 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
           skeleton_part.color.a = m_params.alpha;
 
           for (auto& mk : mkg.second.markers) {
-            if (!std::isnan(mk.second.point.position.x) && !std::isnan(mk.second.point.position.y)
-                && !std::isnan(mk.second.point.position.z)) {
+            if (!std::isnan(mk.second.point.position.x()) && !std::isnan(mk.second.point.position.y())
+                && !std::isnan(mk.second.point.position.z())) {
               geometry_msgs::Point p;
-              p.x = mk.second.point.position.x;
-              p.y = mk.second.point.position.y;
-              p.z = mk.second.point.position.z;
+              p.x = mk.second.point.position.x();
+              p.y = mk.second.point.position.y();
+              p.z = mk.second.point.position.z();
               skeleton_part.points.push_back(p);
 
-              if (!std::isnan(mk.second.point.velocity.x) && !std::isnan(mk.second.point.velocity.y)
-                  && !std::isnan(mk.second.point.velocity.z)) {
+              if (!std::isnan(mk.second.point.velocity.x()) && !std::isnan(mk.second.point.velocity.y())
+                  && !std::isnan(mk.second.point.velocity.z())) {
                 visualization_msgs::Marker velocity_marker;
                 velocity_marker.header.frame_id = "world";
                 velocity_marker.header.stamp = ros::Time::now();
@@ -269,9 +269,9 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
                 velocity_marker.pose.orientation.w = 1;
                 velocity_marker.points.push_back(p);
                 geometry_msgs::Point p2;
-                p2.x = p.x + mk.second.point.velocity.x * 0.1;
-                p2.y = p.y + mk.second.point.velocity.y * 0.1;
-                p2.z = p.z + mk.second.point.velocity.z * 0.1;
+                p2.x = p.x + mk.second.point.velocity.x() * 0.1;
+                p2.y = p.y + mk.second.point.velocity.y() * 0.1;
+                p2.z = p.z + mk.second.point.velocity.z() * 0.1;
                 velocity_marker.points.push_back(p2);
                 velocity_marker.scale.x = 0.02;
                 velocity_marker.scale.y = 0.02;
@@ -283,8 +283,8 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
                 out_msg.markers.push_back(velocity_marker);
               }
 
-              if (!std::isnan(mk.second.point.acceleration.x) && !std::isnan(mk.second.point.acceleration.y)
-                  && !std::isnan(mk.second.point.acceleration.z)) {
+              if (!std::isnan(mk.second.point.acceleration.x()) && !std::isnan(mk.second.point.acceleration.y())
+                  && !std::isnan(mk.second.point.acceleration.z())) {
                 visualization_msgs::Marker acceleration_marker;
                 acceleration_marker.header.frame_id = "world";
                 acceleration_marker.header.stamp = ros::Time::now();
@@ -296,9 +296,9 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(skeleton_msgs::MarkerSkeletonGrou
                 acceleration_marker.pose.orientation.w = 1;
                 acceleration_marker.points.push_back(p);
                 geometry_msgs::Point p2;
-                p2.x = p.x + mk.second.point.acceleration.x * 0.1;
-                p2.y = p.y + mk.second.point.acceleration.y * 0.1;
-                p2.z = p.z + mk.second.point.acceleration.z * 0.1;
+                p2.x = p.x + mk.second.point.acceleration.x() * 0.1;
+                p2.y = p.y + mk.second.point.acceleration.y() * 0.1;
+                p2.z = p.z + mk.second.point.acceleration.z() * 0.1;
                 acceleration_marker.points.push_back(p2);
                 acceleration_marker.scale.x = 0.02;
                 acceleration_marker.scale.y = 0.02;
