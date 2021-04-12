@@ -166,7 +166,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkelet
       float b = std::rand() / static_cast<float>(RAND_MAX);
 
       visualization_msgs::Marker skeleton_id;
-      skeleton_id.header.frame_id = "world";
+      skeleton_id.header.frame_id = t_msg->header.frame_id;
       skeleton_id.header.stamp = ros::Time::now();
       skeleton_id.ns = "pos";
       skeleton_id.action = visualization_msgs::Marker::ADD;
@@ -193,7 +193,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkelet
         if (mkg.first == 0) {
 
           visualization_msgs::Marker links;
-          links.header.frame_id = "world";
+          links.header.frame_id = t_msg->header.frame_id;
           links.header.stamp = ros::Time::now();
           links.ns = "links";
           links.action = visualization_msgs::Marker::ADD;
@@ -231,7 +231,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkelet
 
         if (!mkg.second.markers.empty()) {
           visualization_msgs::Marker skeleton_part;
-          skeleton_part.header.frame_id = "world";
+          skeleton_part.header.frame_id = t_msg->header.frame_id;
           skeleton_part.header.stamp = ros::Time::now();
           skeleton_part.ns = "pos";
           skeleton_part.action = visualization_msgs::Marker::ADD;
@@ -259,7 +259,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkelet
               if (!std::isnan(mk.second.point.velocity.x()) && !std::isnan(mk.second.point.velocity.y())
                   && !std::isnan(mk.second.point.velocity.z())) {
                 visualization_msgs::Marker velocity_marker;
-                velocity_marker.header.frame_id = "world";
+                velocity_marker.header.frame_id = t_msg->header.frame_id;
                 velocity_marker.header.stamp = ros::Time::now();
                 velocity_marker.ns = "vel";
                 velocity_marker.id = id++;
@@ -286,7 +286,7 @@ hiros::vis::Visualizer::getSkeletonMarkerArray(hiros_skeleton_msgs::MarkerSkelet
               if (!std::isnan(mk.second.point.acceleration.x()) && !std::isnan(mk.second.point.acceleration.y())
                   && !std::isnan(mk.second.point.acceleration.z())) {
                 visualization_msgs::Marker acceleration_marker;
-                acceleration_marker.header.frame_id = "world";
+                acceleration_marker.header.frame_id = t_msg->header.frame_id;
                 acceleration_marker.header.stamp = ros::Time::now();
                 acceleration_marker.ns = "acc";
                 acceleration_marker.id = id++;
