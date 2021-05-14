@@ -89,8 +89,13 @@ void hiros::vis::Visualizer::setupRosTopics()
     ROS_WARN_STREAM_THROTTLE(2, m_node_namespace << " No input messages");
   }
 
-  m_out_img_pub = m_ith.advertise(m_params.out_image_topic, 1);
-  m_marker_array_pub = m_nh.advertise<visualization_msgs::MarkerArray>(m_params.out_marker_array_topic, 1);
+  if (m_params.publish_image) {
+    m_out_img_pub = m_ith.advertise(m_params.out_image_topic, 1);
+  }
+
+  if (m_params.publish_marker_array) {
+    m_marker_array_pub = m_nh.advertise<visualization_msgs::MarkerArray>(m_params.out_marker_array_topic, 1);
+  }
 }
 
 void hiros::vis::Visualizer::configure()
@@ -108,6 +113,14 @@ void hiros::vis::Visualizer::configure()
   m_nh.getParam("input_skeleton_topic", m_params.in_skeleton_topic);
   m_nh.getParam("output_image_topic", m_params.out_image_topic);
   m_nh.getParam("output_marker_array_topic", m_params.out_marker_array_topic);
+  m_nh.getParam("publish_image", m_params.publish_image);
+  m_nh.getParam("publish_marker_array", m_params.publish_marker_array);
+
+  if (!m_params.publish_image && !m_params.publish_marker_array) {
+    ROS_FATAL_STREAM("Hi-ROS Skeleton Visualizer...Nothing to publish. Closing");
+    ros::shutdown();
+    exit(EXIT_FAILURE);
+  }
 
   m_configured = true;
 
@@ -116,36 +129,40 @@ void hiros::vis::Visualizer::configure()
 
 void hiros::vis::Visualizer::skeleton_cb(hiros_skeleton_msgs::MarkerSkeletonGroupConstPtr t_msg)
 {
-  //  cv::Mat cv_image(540, 960, CV_8UC3, cv::Scalar(0, 0, 0));
+  //  if (m_params.publish_image) {
+  //    cv::Mat cv_image(540, 960, CV_8UC3, cv::Scalar(0, 0, 0));
 
-  //  for (auto& skeleton : t_msg->skeletons) {
-  //    std::srand(static_cast<unsigned int>(skeleton.id + 1));
-  //    double r = std::rand() / static_cast<double>(RAND_MAX) * 255.;
-  //    double g = std::rand() / static_cast<double>(RAND_MAX) * 255.;
-  //    double b = std::rand() / static_cast<double>(RAND_MAX) * 255.;
+  //    for (auto& skeleton : t_msg->skeletons) {
+  //      std::srand(static_cast<unsigned int>(skeleton.id + 1));
+  //      double r = std::rand() / static_cast<double>(RAND_MAX) * 255.;
+  //      double g = std::rand() / static_cast<double>(RAND_MAX) * 255.;
+  //      double b = std::rand() / static_cast<double>(RAND_MAX) * 255.;
 
-  //    cv::putText(cv_image,
-  //                std::to_string(skeleton.id),
-  //                cv::Point(skeleton.skeleton_parts.front().keypoints.front().point.position.x,
-  //                          skeleton.skeleton_parts.front().keypoints.front().point.position.y - 10),
-  //                0,
-  //                1.0,
-  //                cv::Scalar(r, g, b));
-  //    for (auto& kpg : skeleton.skeleton_parts) {
-  //      for (auto& kp : kpg.keypoints) {
-  //        cv::circle(cv_image, cv::Point(kp.point.position.x, kp.point.position.y), 1, cv::Scalar(r, g, b), 5);
+  //      cv::putText(cv_image,
+  //                  std::to_string(skeleton.id),
+  //                  cv::Point(skeleton.skeleton_parts.front().keypoints.front().point.position.x,
+  //                            skeleton.skeleton_parts.front().keypoints.front().point.position.y - 10),
+  //                  0,
+  //                  1.0,
+  //                  cv::Scalar(r, g, b));
+  //      for (auto& kpg : skeleton.skeleton_parts) {
+  //        for (auto& kp : kpg.keypoints) {
+  //          cv::circle(cv_image, cv::Point(kp.point.position.x, kp.point.position.y), 1, cv::Scalar(r, g, b), 5);
+  //        }
   //      }
   //    }
+
+  //    cv_bridge::CvImage out_cv_img;
+  //    out_cv_img.header = t_msg->header;
+  //    out_cv_img.encoding = sensor_msgs::image_encodings::BGR8;
+  //    out_cv_img.image = cv_image;
+
+  //    m_out_img_pub.publish(out_cv_img.toImageMsg());
   //  }
 
-  //  cv_bridge::CvImage out_cv_img;
-  //  out_cv_img.header = t_msg->header;
-  //  out_cv_img.encoding = sensor_msgs::image_encodings::BGR8;
-  //  out_cv_img.image = cv_image;
-
-  //  m_out_img_pub.publish(out_cv_img.toImageMsg());
-
-  m_marker_array_pub.publish(getSkeletonMarkerArray(t_msg));
+  if (m_params.publish_marker_array) {
+    m_marker_array_pub.publish(getSkeletonMarkerArray(t_msg));
+  }
 }
 
 visualization_msgs::MarkerArray

@@ -28,6 +28,8 @@ namespace hiros {
       std::string in_skeleton_topic = "";
       std::string out_image_topic = "";
       std::string out_marker_array_topic = "";
+      bool publish_image = false;
+      bool publish_marker_array = false;
     };
 
     class Visualizer
