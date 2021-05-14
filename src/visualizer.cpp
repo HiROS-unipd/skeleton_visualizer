@@ -107,7 +107,7 @@ void hiros::vis::Visualizer::configure()
   m_nh.getParam("alpha", m_params.alpha);
   m_nh.getParam("input_skeleton_topic", m_params.in_skeleton_topic);
   m_nh.getParam("output_image_topic", m_params.out_image_topic);
-  m_nh.getParam("out_marker_array_topic", m_params.out_marker_array_topic);
+  m_nh.getParam("output_marker_array_topic", m_params.out_marker_array_topic);
 
   m_configured = true;
 
