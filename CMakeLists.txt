@@ -7,18 +7,13 @@ add_compile_options(-std=c++11)
 # Find catkin macros and libraries if COMPONENTS list like find_package(catkin
 # REQUIRED COMPONENTS xyz) is used, also find other catkin packages
 find_package(catkin REQUIRED
-             COMPONENTS cv_bridge
-                        image_transport
-                        roscpp
-                        sensor_msgs
+             COMPONENTS roscpp
+                        visualization_msgs
                         hiros_skeleton_msgs)
-
-# System dependencies are found with CMake's conventions
-find_package(OpenCV)
 
 # Declare the package to be exported and made available to ros
 catkin_package(CATKIN_DEPENDS
-               sensor_msgs
+               visualization_msgs
                hiros_skeleton_msgs)
 
 # ##############################################################################
@@ -57,14 +52,12 @@ add_dependencies(${PROJECT_NAME}_node
 
 # Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
-                      ${catkin_LIBRARIES}
-                      ${OpenCV_LIBS})
+                      ${catkin_LIBRARIES})
 
 set_target_properties(${PROJECT_NAME}_node
                       PROPERTIES PUBLIC_HEADER include/skeleton_visualizer/visualizer.h)
 target_include_directories(${PROJECT_NAME}_node
                            PRIVATE include
-                                   ${OpenCV_INCLUDE_DIRS}
                                    ${catkin_INCLUDE_DIRS})
 
 # ##############################################################################

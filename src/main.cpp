@@ -1,4 +1,4 @@
-// ROS
+// ROS dependencies
 #include <ros/ros.h>
 
 // Internal dependencies
@@ -10,10 +10,7 @@ int main(int argc, char* argv[])
   ros::init(argc, argv, node_name);
 
   hiros::vis::Visualizer visualizer;
-  visualizer.configure();
   visualizer.start();
-
-  ros::spin();
 
   return 0;
 }
