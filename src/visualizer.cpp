@@ -160,32 +160,35 @@ void hiros::vis::Visualizer::addLinks(visualization_msgs::MarkerArray& t_msg) co
   m.ns = "links";
   m.action = visualization_msgs::Marker::ADD;
   m.pose.orientation.w = 1.0;
-  ++m.id;
   m.lifetime = ros::Duration(m_params.lifetime);
-  m.type = visualization_msgs::Marker::LINE_LIST;
+  m.type = visualization_msgs::Marker::ARROW;
   m.scale.x = SCALE;
+  m.scale.y = 2 * m.scale.x;
+  m.points.resize(2);
 
   for (const auto& skeleton : m_skeleton_group.skeletons) {
     if (!skeleton.links.empty()) {
       m.header.stamp = ros::Time(skeleton.src_time);
-      ++m.id;
       m.color = getColor(skeleton.id);
-      m.points.clear();
 
       for (auto& link : skeleton.links) {
         if (skeleton.hasMarker(link.parent_marker) && skeleton.hasMarker(link.child_marker)) {
           auto parent_marker = skeleton.getMarker(link.parent_marker);
           auto child_marker = skeleton.getMarker(link.child_marker);
 
-          if (!skeletons::utils::isNaN(parent_marker.center.pose)
-              && !skeletons::utils::isNaN(child_marker.center.pose)) {
-            m.points.push_back(skeletons::utils::toPointMsg(parent_marker.center.pose.position));
-            m.points.push_back(skeletons::utils::toPointMsg(child_marker.center.pose.position));
+          if (!skeletons::utils::isNaN(parent_marker.center.pose.position)
+              && !skeletons::utils::isNaN(child_marker.center.pose.position)) {
+            ++m.id;
+            m.scale.z =
+              skeletons::utils::distance(parent_marker.center.pose.position, child_marker.center.pose.position);
+
+            m.points[0] = skeletons::utils::toPointMsg(parent_marker.center.pose.position);
+            m.points[1] = skeletons::utils::toPointMsg(child_marker.center.pose.position);
+
+            t_msg.markers.push_back(m);
           }
         }
       }
-
-      t_msg.markers.push_back(m);
     }
   }
 }
