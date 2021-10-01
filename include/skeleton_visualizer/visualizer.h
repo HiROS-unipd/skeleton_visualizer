@@ -46,6 +46,7 @@ namespace hiros {
       void addIds(visualization_msgs::MarkerArray& t_msg) const;
       void addMarkers(visualization_msgs::MarkerArray& t_msg) const;
       void addLinks(visualization_msgs::MarkerArray& t_msg) const;
+      void addBoundingBoxes(visualization_msgs::MarkerArray& t_msg) const;
       void addVelocities(visualization_msgs::MarkerArray& t_msg) const;
       void addAccelerations(visualization_msgs::MarkerArray& t_msg) const;
 

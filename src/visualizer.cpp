@@ -1,3 +1,6 @@
+// ROS dependencies
+#include <tf2/LinearMath/Transform.h>
+
 // Custom External Packages dependencies
 #include "skeletons/utils.h"
 
@@ -85,6 +88,7 @@ visualization_msgs::MarkerArray hiros::vis::Visualizer::getMarkerArray() const
   addIds(out_msg);
   addMarkers(out_msg);
   addLinks(out_msg);
+  addBoundingBoxes(out_msg);
   addVelocities(out_msg);
   addAccelerations(out_msg);
 
@@ -188,6 +192,58 @@ void hiros::vis::Visualizer::addLinks(visualization_msgs::MarkerArray& t_msg) co
             t_msg.markers.push_back(m);
           }
         }
+      }
+    }
+  }
+}
+
+void hiros::vis::Visualizer::addBoundingBoxes(visualization_msgs::MarkerArray& t_msg) const
+{
+  visualization_msgs::Marker m;
+
+  m.header.frame_id = m_skeleton_group.frame;
+  m.ns = "bounding_boxes";
+  m.action = visualization_msgs::Marker::ADD;
+  m.pose.orientation.w = 1.0;
+  ++m.id;
+  m.lifetime = ros::Duration(m_params.lifetime);
+  m.type = visualization_msgs::Marker::LINE_LIST;
+  m.scale.x = SCALE;
+  m.points.resize(2);
+
+  for (const auto& skeleton : m_skeleton_group.skeletons) {
+    if (!skeletons::utils::isNaN(skeleton.bounding_box.center.pose)) {
+      m.header.stamp = ros::Time(skeleton.src_time);
+      ++m.id;
+      m.color = getColor(skeleton.id);
+
+      tf2::Transform box_tf_mat(skeleton.bounding_box.center.pose.orientation,
+                                skeleton.bounding_box.center.pose.position);
+
+      std::vector<geometry_msgs::Point> box_vertices(8);
+      for (unsigned int i = 0; i < box_vertices.size(); ++i) {
+        box_vertices[i] = skeletons::utils::toPointMsg(
+          box_tf_mat
+          * skeletons::types::Point(std::pow(-1, (i + 1) / 2) * (skeleton.bounding_box.height / 2),
+                                    std::pow(-1, i / 2) * (skeleton.bounding_box.length / 2),
+                                    std::pow(-1, i / 4) * (skeleton.bounding_box.width / 2)));
+      }
+
+      for (unsigned int i = 0; i < 4; ++i) {
+        ++m.id;
+        m.points[0] = box_vertices[i];
+        m.points[1] = box_vertices[(i + 1) % 4];
+        t_msg.markers.push_back(m);
+
+        ++m.id;
+        m.points[0] = box_vertices[4 + i];
+        m.points[1] = box_vertices[4 + (i + 1) % 4];
+        t_msg.markers.push_back(m);
+
+        ++m.id;
+        m.points[0] = box_vertices[i];
+        m.points[1] = box_vertices[i + 4];
+        t_msg.markers.push_back(m);
       }
     }
   }
