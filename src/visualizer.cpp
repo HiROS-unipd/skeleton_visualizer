@@ -56,6 +56,7 @@ void hiros::vis::Visualizer::stop()
   }
 
   ROS_INFO_STREAM(BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer... STOPPED" << BASH_MSG_RESET);
+  ros::shutdown();
 }
 
 void hiros::vis::Visualizer::setupRosTopics()
@@ -73,6 +74,11 @@ void hiros::vis::Visualizer::setupRosTopics()
 
 void hiros::vis::Visualizer::callback(const hiros_skeleton_msgs::SkeletonGroup& t_msg)
 {
+  if (!ros::ok()) {
+    stop();
+    exit(EXIT_FAILURE);
+  }
+
   m_skeleton_group = skeletons::utils::toStruct(t_msg);
   m_marker_array_pub.publish(getMarkerArray());
 }
