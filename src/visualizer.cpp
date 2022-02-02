@@ -64,9 +64,9 @@ void hiros::vis::Visualizer::setupRosTopics()
   m_skel_group_sub = m_nh.subscribe(m_params.in_skeleton_group_topic, 1, &Visualizer::callback, this);
 
   while (m_skel_group_sub.getNumPublishers() == 0 && !ros::isShuttingDown()) {
-    ROS_WARN_STREAM_THROTTLE(2,
-                             "Hi-ROS Skeleton Visualizer... No input messages on input topic ' "
-                               << m_params.in_skeleton_group_topic << "'");
+    ROS_WARN_STREAM_DELAYED_THROTTLE(2,
+                                     "Hi-ROS Skeleton Visualizer Warning: No input messages on input topic ' "
+                                       << m_params.in_skeleton_group_topic << "'");
   }
 
   m_marker_array_pub = m_nh.advertise<visualization_msgs::MarkerArray>(m_params.out_marker_array_topic, 1);
