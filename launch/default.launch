@@ -11,10 +11,7 @@
   <arg name="lifetime"                  default="0.1"          />
   <arg name="alpha"                     default="1.0"          />
   <arg name="input_skeleton_topic"      default=""             />
-  <arg name="output_image_topic"        default="skel_image"   />
   <arg name="output_marker_array_topic" default="skel_markers" />
-  <arg name="publish_image"             default="true"         />
-  <arg name="publish_marker_array"      default="true"         />
 
   <!--*********************************-->
   <!-- Hi-Ros Skeleton Visualizer Node -->
@@ -25,10 +22,7 @@
     <param name="lifetime"                        type="double"     value="$(arg lifetime)"                      />
     <param name="alpha"                           type="double"     value="$(arg alpha)"                         />
     <param name="input_skeleton_topic"            type="str"        value="$(arg input_skeleton_topic)"          />
-    <param name="output_image_topic"              type="str"        value="$(arg output_image_topic)"            />
     <param name="output_marker_array_topic"       type="str"        value="$(arg output_marker_array_topic)"     />
-    <param name="publish_image"                   type="bool"       value="$(arg publish_image)"                 />
-    <param name="publish_marker_array"            type="bool"       value="$(arg publish_marker_array)"          />
   </node>
 
 </launch>

@@ -7,16 +7,13 @@
   <!--**************************************************************-->
   <!-- Hi-Ros Skeleton Visualizer Node: Parameters override and Run -->
   <!--**************************************************************-->
-  <include file="$(find hiros_skeleton_visualizer)/launch/hiros_skeleton_visualizer_default.launch">
+  <include file="$(find hiros_skeleton_visualizer)/launch/default.launch">
     <arg name="node_name"                                        value="$(arg node_name)"                     />
     <arg name="node_required"                                    value="$(arg node_required)"                 />
     <arg name="alpha"                                            value="0.5"                                  />
     <arg name="lifetime"                                         value="0.04"                                 />
     <arg name="input_skeleton_topic"                             value="/hiros/st/node_01/qhd/skeleton_group" />
-    <arg name="output_image_topic"                               value="skel_img"                             />
-    <arg name="output_marker_array_topic"                        value="skel_mrk"                             />
-    <arg name="publish_image"                                    value="true"                                 />
-    <arg name="publish_marker_array"                             value="true"                                 />
+    <arg name="output_marker_array_topic"                        value="/vis/skel_mrk"                        />
   </include>
 
 </launch>
