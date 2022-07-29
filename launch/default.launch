@@ -7,11 +7,11 @@
   <!--***************************************-->
   <!-- Hi-Ros Skeleton Visualizer Parameters -->
   <!--***************************************-->
-  <arg name="seed"                      default="0"            />
-  <arg name="lifetime"                  default="0.1"          />
-  <arg name="alpha"                     default="1.0"          />
-  <arg name="input_skeleton_topic"      default=""             />
-  <arg name="output_marker_array_topic" default="skel_markers" />
+  <arg name="seed"                       default="0"            />
+  <arg name="lifetime"                   default="0.1"          />
+  <arg name="alpha"                      default="1.0"          />
+  <arg name="input_skeleton_group_topic" default=""             />
+  <arg name="output_marker_array_topic"  default="skel_markers" />
 
   <!--*********************************-->
   <!-- Hi-Ros Skeleton Visualizer Node -->
@@ -21,7 +21,7 @@
     <param name="seed"                            type="int"        value="$(arg seed)"                          />
     <param name="lifetime"                        type="double"     value="$(arg lifetime)"                      />
     <param name="alpha"                           type="double"     value="$(arg alpha)"                         />
-    <param name="input_skeleton_topic"            type="str"        value="$(arg input_skeleton_topic)"          />
+    <param name="input_skeleton_group_topic"      type="str"        value="$(arg input_skeleton_group_topic)"    />
     <param name="output_marker_array_topic"       type="str"        value="$(arg output_marker_array_topic)"     />
   </node>
 

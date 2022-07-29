@@ -17,15 +17,15 @@ Contains an example on how to set some parameters of choice
 
 ## Parameters
 
-| Parameter                   | Description                                                                   |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `node_required`             | Set if the other ROS nodes on the PC should be killed when the node is killed |
-| `node_name`                 | Node name                                                                     |
-| `seed`                      | Seed to use to generate each skeleton's color                                 |
-| `lifetime`                  | Lifetime [s] of the visualized skeletons                                      |
-| `alpha`                     | Alpha of the visualized skeletons                                             |
-| `input_skeleton_topic`      | Name of the input SkeletonGroup topic                                         |
-| `output_marker_array_topic` | Name of the output MarkerArray topic                                          |
+| Parameter                    | Description                                                                   |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| `node_required`              | Set if the other ROS nodes on the PC should be killed when the node is killed |
+| `node_name`                  | Node name                                                                     |
+| `seed`                       | Seed to use to generate each skeleton's color                                 |
+| `lifetime`                   | Lifetime [s] of the visualized skeletons                                      |
+| `alpha`                      | Alpha of the visualized skeletons                                             |
+| `input_skeleton_group_topic` | Name of the input SkeletonGroup topic                                         |
+| `output_marker_array_topic`  | Name of the output MarkerArray topic                                          |
 
 
 ## Usage

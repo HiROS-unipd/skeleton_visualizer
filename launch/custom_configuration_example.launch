@@ -12,8 +12,8 @@
     <arg name="node_required"                                    value="$(arg node_required)"                 />
     <arg name="alpha"                                            value="0.5"                                  />
     <arg name="lifetime"                                         value="0.04"                                 />
-    <arg name="input_skeleton_topic"                             value="/hiros/st/node_01/qhd/skeleton_group" />
-    <arg name="output_marker_array_topic"                        value="/vis/skel_mrk"                        />
+    <arg name="input_skeleton_group_topic"                       value="/hiros/skeleton_group"                />
+    <arg name="output_marker_array_topic"                        value="/hiros/skeleton_marker_array"         />
   </include>
 
 </launch>
