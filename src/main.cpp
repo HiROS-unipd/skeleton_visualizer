@@ -1,16 +1,8 @@
-// ROS dependencies
-#include <ros/ros.h>
+#include "skeleton_visualizer/Visualizer.h"
 
-// Internal dependencies
-#include "skeleton_visualizer/visualizer.h"
-
-int main(int argc, char* argv[])
-{
-  std::string node_name = "hiros_skeleton_visualizer";
-  ros::init(argc, argv, node_name);
-
-  hiros::vis::Visualizer visualizer;
-  visualizer.start();
-
-  return 0;
+int main(int argc, char* argv[]) {
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<hiros::skeletons::Visualizer>());
+  rclcpp::shutdown();
+  exit(EXIT_SUCCESS);
 }
