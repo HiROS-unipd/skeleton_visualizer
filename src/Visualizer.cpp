@@ -157,7 +157,7 @@ void hiros::skeletons::Visualizer::addLinks(
       m.header.stamp = rclcpp::Time(static_cast<long>(skeleton.src_time * 1e9));
       m.color = getColor(skeleton.id);
 
-      for (auto& link : skeleton.links) {
+      for (const auto& link : skeleton.links) {
         if (skeleton.hasMarker(link.parent_marker) &&
             skeleton.hasMarker(link.child_marker)) {
           auto parent_marker{skeleton.getMarker(link.parent_marker)};
