@@ -19,14 +19,12 @@ void hiros::skeletons::Visualizer::start() {
   configure();
 
   RCLCPP_INFO_STREAM(get_logger(),
-                     BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer... RUNNING"
-                                    << BASH_MSG_RESET);
+                     BASH_MSG_GREEN << "Running" << BASH_MSG_RESET);
 }
 
 void hiros::skeletons::Visualizer::stop() const {
   RCLCPP_INFO_STREAM(get_logger(),
-                     BASH_MSG_GREEN << "Hi-ROS Skeleton Visualizer... STOPPED"
-                                    << BASH_MSG_RESET);
+                     BASH_MSG_GREEN << "Stopped" << BASH_MSG_RESET);
 
   rclcpp::shutdown();
 }
@@ -90,7 +88,7 @@ void hiros::skeletons::Visualizer::addIds(
 
   for (const auto& skeleton : skeleton_group_.skeletons) {
     if (!skeleton.markers.empty()) {
-      m.header.stamp = rclcpp::Time(static_cast<long>(skeleton.src_time * 1e9));
+      m.header.stamp = rclcpp::Time{static_cast<long>(skeleton.src_time * 1e9)};
       ++m.id;
       m.text = std::to_string(skeleton.id);
       m.color = getColor(skeleton.id);
@@ -121,7 +119,7 @@ void hiros::skeletons::Visualizer::addMarkers(
 
   for (const auto& skeleton : skeleton_group_.skeletons) {
     if (!skeleton.markers.empty()) {
-      m.header.stamp = rclcpp::Time(static_cast<long>(skeleton.src_time * 1e9));
+      m.header.stamp = rclcpp::Time{static_cast<long>(skeleton.src_time * 1e9)};
       ++m.id;
       m.color = getColor(skeleton.id);
       m.points.clear();
@@ -154,7 +152,7 @@ void hiros::skeletons::Visualizer::addLinks(
 
   for (const auto& skeleton : skeleton_group_.skeletons) {
     if (!skeleton.links.empty()) {
-      m.header.stamp = rclcpp::Time(static_cast<long>(skeleton.src_time * 1e9));
+      m.header.stamp = rclcpp::Time{static_cast<long>(skeleton.src_time * 1e9)};
       m.color = getColor(skeleton.id);
 
       for (const auto& link : skeleton.links) {
@@ -200,7 +198,7 @@ void hiros::skeletons::Visualizer::addVelocities(
 
   for (const auto& skeleton : skeleton_group_.skeletons) {
     if (!skeleton.markers.empty()) {
-      m.header.stamp = rclcpp::Time(static_cast<long>(skeleton.src_time * 1e9));
+      m.header.stamp = rclcpp::Time{static_cast<long>(skeleton.src_time * 1e9)};
       m.color = getColor(skeleton.id);
 
       for (const auto& marker : skeleton.markers) {
@@ -237,7 +235,7 @@ void hiros::skeletons::Visualizer::addAccelerations(
 
   for (const auto& skeleton : skeleton_group_.skeletons) {
     if (!skeleton.markers.empty()) {
-      m.header.stamp = rclcpp::Time(static_cast<long>(skeleton.src_time * 1e9));
+      m.header.stamp = rclcpp::Time{static_cast<long>(skeleton.src_time * 1e9)};
       m.color = getColor(skeleton.id);
 
       for (const auto& marker : skeleton.markers) {
@@ -298,7 +296,7 @@ geometry_msgs::msg::TransformStamped hiros::skeletons::Visualizer::ks2tf(
   geometry_msgs::msg::TransformStamped tf{};
 
   tf.header.frame_id = skeleton_group_.frame;
-  tf.header.stamp = rclcpp::Time(static_cast<long>(skeleton_group_.time * 1e9));
+  tf.header.stamp = rclcpp::Time{static_cast<long>(skeleton_group_.time * 1e9)};
   tf.child_frame_id = name;
   tf.transform.translation = skeletons::utils::toVector3Msg(ks.pose.position);
   tf.transform.rotation = skeletons::utils::toMsg(ks.pose.orientation);
